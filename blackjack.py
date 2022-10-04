@@ -8,17 +8,19 @@ Chinese Blackjack game (1 human player vs 1 computer dealer)
 
 # Deck creation set up
 suits = ("Spades", "Hearts", "Clubs", "Diamonds")
-ranks = ("Ace", "Two", "Three", "Four", "Five", "Six", "Seven", \
-        "Eight", "Nine", "Ten", "Jack", "Queen", "King")
+ranks = ("Ace", "Two", "Three", "Four", "Five", "Six", "Seven",
+         "Eight", "Nine", "Ten", "Jack", "Queen", "King")
 values = {
-    "Ace": [1, 11, 10], "Two": 2, "Three": 3, "Four" : 4, "Five" : 5, "Six" : 6, "Seven": 7, \
-    "Eight" : 8, "Nine" : 9, "Ten" : 10, "Jack" : 10, "Queen" : 10, "King" : 10
+    "Ace": [1, 11, 10], "Two": 2, "Three": 3, "Four": 4, "Five": 5, "Six": 6, "Seven": 7,
+    "Eight": 8, "Nine": 9, "Ten": 10, "Jack": 10, "Queen": 10, "King": 10
 }
 
 # A card class has 3 attributes; rank, suit and value
 # The value attribute is assigned based on the values dictionary
+
+
 class Card():
-    
+
     def __init__(self, rank, suit):
         self.rank = rank
         self.suit = suit
@@ -29,12 +31,14 @@ class Card():
 
 # A deck class that contains 52 unique card objects
 # It has an all cards attribute that holds the 52 card objects
+
+
 class Deck():
 
     def __init__(self):
 
         self.all_cards = []
-        
+
         # For each suit in suit tuple
         for suit in suits:
 
@@ -55,8 +59,10 @@ class Deck():
         random.shuffle(self.all_cards)
 
 # Function takes in a hand (list of cards) and checks for an ace
+
+
 def check_hand_for_ace(list_of_cards):
-    
+
     # For each card in hand (list of cards)
     for card in list_of_cards:
 
@@ -70,6 +76,8 @@ def check_hand_for_ace(list_of_cards):
     return False
 
 # A player class that has attributes of a name, stack, list of hand objs, and hand values
+
+
 class Player():
 
     def __init__(self, name, stack):
@@ -118,7 +126,7 @@ class Player():
             # If it does has an ace, check for the number of cards
             # If the number of cards in hand is 2, apply respective ace values (1,11)
             if len(self.hand) == 2:
-                
+
                 # For each card in hand
                 for card in self.hand:
 
@@ -130,7 +138,7 @@ class Player():
 
                         # Update hand value with the card value of 1
                         self.hand_value += card.value[0]
-                    
+
                     # Else the card is non-ace
                     else:
 
@@ -154,7 +162,7 @@ class Player():
 
                         # Update hand value with the card value of 1
                         self.hand_value += card.value[0]
-                    
+
                     # Else the card is non-ace
                     else:
 
@@ -175,7 +183,7 @@ class Player():
 
                         # Update hand value with the card value of 1
                         self.hand_value += card.value[0]
-                    
+
                     # Else the card is non-ace
                     else:
 
@@ -198,7 +206,8 @@ class Player():
 
         # Filters legal hand values and returns a list of legal hands
         # A hand is legal if it is 16 and above but 21 and below
-        legal_hands = list(filter(lambda hand_value: 16 <= hand_value <= 21, hand_values))
+        legal_hands = list(filter(lambda hand_value: 16 <=
+                           hand_value <= 21, hand_values))
 
         # If there is no legal hands:
         if len(legal_hands) == 0:
@@ -230,26 +239,28 @@ class Player():
     # Allows user to bet an amount, no min, max is all in
     def bet(self, amount):
 
-            # Deduct the bet amount from the user's stack
-            self.stack -= amount
-        
+        # Deduct the bet amount from the user's stack
+        self.stack -= amount
+
     # Shows how much user has left in his stack
     def __str__(self):
         return f"Player {self.name} has a total of ${self.stack} dollars remaining."
 
 # Function takes in a list of 2 card objs and check if both have the attribute "rank" of "Ace"
+
+
 def check_hand_for_aces(list_of_cards):
 
     # Check through the list of cards
     for card in list_of_cards:
-        
+
         # If a non Ace card is found, break out of for loop and return false
         if card.rank != "Ace":
             break
 
     # Else if loop completed normally
     else:
-        
+
         # Return true
         return True
 
@@ -257,20 +268,22 @@ def check_hand_for_aces(list_of_cards):
     return False
 
 # Function takes in a list of card objs and check if there is exactly 3 cards with the "Seven" "rank"
+
+
 def check_hand_for_777(list_of_cards):
 
     if len(list_of_cards) == 3:
 
         # Check through the list of cards
         for card in list_of_cards:
-            
+
             # If a non Seven card is found, break out of for loop and return false
             if card.rank != "Seven":
                 break
 
         # Else if loop completed normally
         else:
-            
+
             # Return true
             return True
 
@@ -281,8 +294,10 @@ def check_hand_for_777(list_of_cards):
     return False
 
 # Ask user if they want to replay the game or not
+
+
 def replay():
-    
+
     # Possible options
     yes = ["Y", "YES"]
     no = ["N", "NO"]
@@ -314,6 +329,8 @@ def replay():
             print()
 
 # Chinese Blackjack game
+
+
 def main():
 
     # # Testing purposes
@@ -345,7 +362,7 @@ def main():
     while type(stack) != Decimal or stack <= 0:
 
         stack = input("Please enter a dollar number for your starting stack: ")
-        
+
         # Try to convert user input into a Decimal class
         # Decimal class used to support floating point bets
         try:
@@ -413,7 +430,7 @@ def main():
             while type(bet_amt) != Decimal or bet_amt <= 0 or bet_amt > user.stack:
 
                 bet_amt = input("Please enter a dollar number for your bet: ")
-                
+
                 # Try to convert user input into a Decimal class
                 # Decimal class used to support floating point bets
                 try:
@@ -492,7 +509,7 @@ def main():
                     # Update user stack
                     user.stack += bet_amt
                     break
-            
+
             # Else if computer has aces, player lost 3x his bet amount
             elif check_hand_for_aces(computer.hand):
 
@@ -559,7 +576,7 @@ def main():
 
             # Else if user don't have a ban luck
             else:
-                
+
                 # If computer has ban luck
                 if computer.hand_value_with_ace == 21:
 
@@ -581,7 +598,7 @@ def main():
                     # Update computer dealer stack
                     computer.stack += lost_amt
                     break
-                
+
                 # Else both players don't have ban luck, it is a normal hand
                 else:
 
@@ -616,13 +633,14 @@ or {user.hand_value_with_ace}.")
 
                 # Ask the user if the user wants to hit or to stand
                 action = input("Hit or stand?: ")
-                
+
                 # Clean user input
                 action = action.lower()
 
                 # Validate user input
                 if action not in ["hit", "stand", "h", "s"]:
-                    print("""Sorry I don't understand!, Please enter either "hit" or "stand".""")
+                    print(
+                        """Sorry I don't understand! Please enter either "hit" or "stand".""")
                     continue
 
                 # Else if the user wants to draw a card
@@ -691,7 +709,8 @@ or {user.hand_value_with_ace}.")
                             # Print to the user his hand value
                             time.sleep(1)
                             print()
-                            print(f"Your hand has a value of {user.hand_value}.")
+                            print(
+                                f"Your hand has a value of {user.hand_value}.")
                             print()
 
                         else:
@@ -825,7 +844,8 @@ or {user.hand_value_with_ace}.")
             time.sleep(1)
             computer.see_hand()
             time.sleep(1)
-            print(f"The computer dealer's hand value is {computer.final_hand_value}.")
+            print(
+                f"The computer dealer's hand value is {computer.final_hand_value}.")
             time.sleep(1)
 
             # Checking for 777 instant victory conditions
@@ -1052,6 +1072,7 @@ or {user.hand_value_with_ace}.")
                 game_on = False
                 print("Thank you for playing!")
                 break
+
 
 # If this module is run under Python interpreter, __name__ is set '__main__' by the Python interpreter.
 # tldr: If this script is ran from this script, call the main function
